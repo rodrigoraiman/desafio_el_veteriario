@@ -15,10 +15,12 @@ class PetHistoriesController < ApplicationController
   # GET /pet_histories/new
   def new
     @pet_history = PetHistory.new
+    @pets = Pet.pluck :name, :id
   end
 
   # GET /pet_histories/1/edit
   def edit
+    @pets = Pet.pluck :name, :id
   end
 
   # POST /pet_histories
@@ -34,7 +36,7 @@ class PetHistoriesController < ApplicationController
         format.html { render :new }
         format.json { render json: @pet_history.errors, status: :unprocessable_entity }
       end
-    end
+    
   end
 
   # PATCH/PUT /pet_histories/1
@@ -67,8 +69,9 @@ class PetHistoriesController < ApplicationController
       @pet_history = PetHistory.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    
     def pet_history_params
       params.require(:pet_history).permit(:weight, :heigth, :description)
     end
+  
 end
